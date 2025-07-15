@@ -87,14 +87,8 @@
   </div>
 
   <h2>📞 Contact Us</h2>
-  <p><strong>Location:</strong> Wembley, London</p>
-  <p><strong>Phone:</strong> 0208 123 4567</p>
-  <p><strong>WhatsApp Orders:</strong> <a href="https://wa.me/441234567890" target="_blank">Chat with us on WhatsApp</a></p>
-  <p><strong>Hours:</strong> 11:00 AM – 10:00 PM daily</p>
-
-  <footer>
-    <p>© 2025 CurryHub | Wembley, London</p>
-  </footer>
-
-</body>
-</html>
+<p><strong>Location:</strong> Wembley, London</p>
+<p><strong>Phone:</strong> 0208 123 4567</p>
+<p><strong>WhatsApp Orders:</strong> <a href="https://wa.me/447901501724" target="_blank">Chat with us on WhatsApp</a></p>
+<p><strong>Email:</strong> <a href="mailto:curryhub30@gmail.com">curryhub30@gmail.com</a></p>
+<p><strong>Hours:</strong> 11:00 AM – 10:00 PM daily</p>
