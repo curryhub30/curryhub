@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CurryHub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffaf0;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1, h2 {
+      color: #8b0000;
+    }
+
+    .menu-item {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .menu-item img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .price {
+      float: right;
+      color: green;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background-color: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a00000;
+    }
+
+    #order-summary {
+      margin-top: 20px;
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #666;
+    }
+
+    input[type="text"] {
+      padding: 6px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+
+  <h1>Welcome to CurryHub</h1>
+  <p><strong>Authentic Flavours. Heartfelt Hospitality.</strong></p>
+
+  <h2>📋 Menu</h2>
+
+  <div class="menu-item">
+    <h3>Chicken Fry <span class="price">£3.00</span></h3>
+    <p>Spicy red masala marinated chicken.</p>
+    <button onclick="addToOrder('Chicken Fry', 3.00)">Add to Order</button>
+  </div>
+
+  <div class="menu-item">
+    <h3>Lamb Curry <span class="price">£4.50</span></h3>
+    <p>Slow-cooked lamb with aromatic spices.</p>
+    <button onclick="addToOrder('Lamb Curry', 4.50)">Add to Order</button>
+  </div>
+
+  <div class="menu-item">
+    <h3>Veg Pulao <span class="price">£3.00</span></h3>
+    <p>Fluffy basmati rice with vegetables.</p>
+    <button onclick="addToOrder('Veg Pulao', 3.00)">Add to Order</button>
+  </div>
+
+  <h2>🧾 Your Order</h2>
+  <div id="order-summary">
+    <p>No items added yet.</p>
+  </div>
+
+  <h3>Your Details</h3>
+  <input type="text" id="customer-name" placeholder="Your name">
+
+  <button id="place-order-button" style="display:none;" onclick="placeOrder()">Place Order</button>
+
+  <h2>📞 Contact Us</h2>
+  <p><strong>Phone:</strong> 0208 123 4567</p>
+  <p><strong>WhatsApp:</strong> <a href="https://wa.me/441234567890" target="_blank">Chat with us</a></p>
+  <p><strong>Hours:</strong> 11 AM – 10 PM daily</p>
+
+  <footer>
+    <p>©️ 2025 CurryHub | Wembley, London</p>
+  </footer>
+
+  <script>
+    emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+
+    const order = [];
+
+    function addToOrder(itemName, itemPrice) {
+      order.push({ name: itemName, price: itemPrice });
+      updateOrderSummary();
+    }
+
+    function updateOrderSummary() {
+      const summaryDiv = document.getElementById('order-summary');
+      const placeOrderBtn = document.getElementById('place-order-button');
+
+      if (order.length === 0) {
+        summaryDiv.innerHTML = "<p>No items added yet.</p>";
+        placeOrderBtn.style.display = "none";
+        return;
+      }
+
+      let html = "<ul>";
+      let total = 0;
+      order.forEach((item, index) => {
+        html += `<li>${item.name} - £${item.price.toFixed(2)}</li>`;
+        total += item.price;
+      });
+      html += `</ul><p><strong>Total: £${total.toFixed(2)}</strong></p>`;
+      summaryDiv.innerHTML = html;
+      placeOrderBtn.style.display = "inline-block";
+    }
+
+    function placeOrder() {
+      const name = document.getElementById("customer-name").value.trim();
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      if (order.length === 0) {
+        alert("Your order is empty.");
+        return;
+      }
+
+      const orderDetails = order.map(item => `• ${item.name} (£${item.price.toFixed(2)})`).join("\n");
+      const total = order.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+
+      const templateParams = {
+        customer_name: name,
+        order_items: orderDetails,
+        total_price: total
+      };
+
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+        .then(() => {
+          alert("✅ Order placed! You'll receive confirmation soon.");
+          order.length = 0;
+          updateOrderSummary();
+          document.getElementById("customer-name").value = "";
+          
+          // WhatsApp notification
+          const whatsappMessage = `Hi CurryHub! 👋\n\nMy name is ${name}.\nI'd like to place the following order:\n\n${orderDetails}\n\nTotal: £${total}`;
+          const whatsappURL = `https://wa.me/441234567890?text=${encodeURIComponent(whatsappMessage)}`;
+          window.open(whatsappURL, '_blank');
+        })
+        .catch((error) => {
+          alert("❌ Failed to send order. Please try again.");
+          console.error(error);
+        });
+    }
+  </script>
+
+</body>
+</html>
