@@ -87,8 +87,11 @@
   </div>
 
   <h2>📞 Contact Us</h2>
-<p><strong>Location:</strong> Wembley, London</p>
+<p><strong>Location:</strong> Flat 509 Thomson, 2 Engineers Way, Wembley HA9 0JS, United Kingdom</p>
 <p><strong>Phone:</strong> 0208 123 4567</p>
-<p><strong>WhatsApp Orders:</strong> <a href="https://wa.me/447901501724" target="_blank">Chat with us on WhatsApp</a></p>
+<p><strong>WhatsApp Orders:</strong> 
+  <a href="https://wa.me/447901501724" target="_blank">Chat with us on WhatsApp</a> | 
+  <a href="https://wa.me/c/447901501724" target="_blank">View Our WhatsApp Catalog</a>
+</p>
 <p><strong>Email:</strong> <a href="mailto:curryhub30@gmail.com">curryhub30@gmail.com</a></p>
-<p><strong>Hours:</strong> 11:00 AM – 10:00 PM daily</p>
+<p><strong>Hours:</strong> 9:00 AM – 18:00 PM mon to friday</p>
